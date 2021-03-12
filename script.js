@@ -44,7 +44,7 @@ const findKeyword = async (dirPath, keyword = DEFAULT_KEYWORD) => new Promise((r
  * To iterate all the files in the directory path
  */
 const getAllFiles = async ({
-  dirPath = '../', extension = '', filter, keyword, fileArray,
+  dirPath = './', extension = '', filter, keyword, fileArray,
 }) => {
   const files = fs.readdirSync(dirPath);
   // eslint-disable-next-line no-param-reassign
