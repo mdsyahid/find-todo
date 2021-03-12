@@ -25,6 +25,7 @@ ___
 
 ```sh
 $ git clone https://github.com/mdsyahid/find-todo.git
+$ cd find-todo
 $ npm install
 ```
 
