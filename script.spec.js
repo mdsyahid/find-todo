@@ -27,8 +27,14 @@ describe('#Test index file', () => {
   });
 
   describe('#Test getAllFiles function', () => {
-    it('should return an array of length 3', async () => {
-      const result = await getAllFiles({ dirPath: './', filter: 'node_modules', extention: '.js' });
+    it('should return an array of length 6', async () => {
+      const result = await getAllFiles({ filter: 'node_modules' });
+      expect(Array.isArray(result)).toBe(true);
+      expect(result.length).toBe(6);
+    });
+
+    it('should return an array of length 3 when search js file only', async () => {
+      const result = await getAllFiles({ filter: 'node_modules', extension: '.js' });
       expect(Array.isArray(result)).toBe(true);
       expect(result.length).toBe(3);
     });
