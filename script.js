@@ -3,7 +3,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const getFileExtension = (filePath) => path.extname(filePath);
+const DEFAULT_KEYWORD = 'TODO';
+
+const getFileExtension = (filePath) => path.extname(filePath).toLowerCase();
 
 /**
  * @param {string} dirPath of the file
@@ -12,7 +14,7 @@ const getFileExtension = (filePath) => path.extname(filePath);
  * @description
  * To find if the keyword exist in the file
  */
-const findKeyword = async (dirPath, keyword = 'TODO') => new Promise((resolve, reject) => {
+const findKeyword = async (dirPath, keyword = DEFAULT_KEYWORD) => new Promise((resolve, reject) => {
   const fileStream = fs.createReadStream(dirPath, { encoding: 'utf8' });
   let isMatch = false;
   let data = '';
@@ -42,7 +44,7 @@ const findKeyword = async (dirPath, keyword = 'TODO') => new Promise((resolve, r
  * To iterate all the files in the directory path
  */
 const getAllFiles = async ({
-  dirPath = '../', extension = '.js', filter, keyword, fileArray,
+  dirPath = '../', extension = '', filter, keyword, fileArray,
 }) => {
   const files = fs.readdirSync(dirPath);
   // eslint-disable-next-line no-param-reassign
@@ -57,11 +59,14 @@ const getAllFiles = async ({
         });
       } else {
         const filePath = path.join(__dirname, dirPath, '/', file);
-        const fileExtension = getFileExtension(filePath);
+        let fileExtension = '';
+        if (extension) {
+          fileExtension = getFileExtension(filePath);
+        }
         if (
           filePath
             && !filePath.includes(filter)
-            && fileExtension === extension
+            && fileExtension === extension.toLowerCase()
         ) {
           const isKeyExist = await findKeyword(filePath, keyword).catch((err) => {
             console.error(
@@ -108,16 +113,18 @@ const getArgurments = () => {
 const findAllTodo = async () => {
   const argument = getArgurments();
   const {
-    filter, ext: extension, keyword, customPath,
+    filter, ext: extension, keyword = DEFAULT_KEYWORD, customPath,
   } = argument;
 
   try {
+    console.info('Searching... Kindly be patient.');
     const result = await getAllFiles({
       dirPath: customPath, extension, filter, keyword,
     });
 
     const resultLength = result.length;
-    const headerMessage = `Found keyword in ${resultLength} files`;
+    console.info('Searching... Completed.');
+    const headerMessage = `Found keyword "${keyword}" in ${resultLength} files`;
     console.info(headerMessage);
     result.forEach((filepath, index) => {
       console.info(`${index + 1} => ${filepath}`);

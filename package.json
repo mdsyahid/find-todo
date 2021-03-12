@@ -4,13 +4,13 @@
   "description": "Print all files with TODO",
   "main": "index.js",
   "bin": {
-    "find-todos": "index.js"
+    "find-todo": "index.js"
   },
   "engines": {
     "node": ">= 12"
   },
   "scripts": {
-    "start": "node index.js --ext=.js --filter=node_modules",
+    "start": "node index.js --filter=node_modules",
     "debug": "node --inspect-brk index.js",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
