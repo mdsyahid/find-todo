@@ -1,0 +1,28 @@
+{
+  "name": "find-todo",
+  "version": "1.0.0",
+  "description": "Print all files with TODO",
+  "main": "index.js",
+  "bin": {
+    "find-todos": "index.js"
+  },
+  "engines": {
+    "node": ">= 12"
+  },
+  "scripts": {
+    "start": "node index.js --ext=.js --filter=node_modules",
+    "debug": "node --inspect-brk index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "test": "jest *.spec.js",
+    "cover": "jest --coverage",
+    "audit": "npm audit"
+  },
+  "author": "mdsyahid",
+  "devDependencies": {
+    "eslint": "^7.21.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "jest": "^26.6.3"
+  }
+}
