@@ -8,8 +8,10 @@ If the keyword is found, it will be part of the output which will display the fi
 
 `TODO:`
 
+- Added CLI to prompt user which keyword to search
 - Allow multiple extension
 - Allow multiple files to filter out
+- Add performance script start end time
 ___
 
 ### Prerequisites
@@ -17,7 +19,21 @@ ___
 - Node.js `>= 12.x.x`
 - npm `>= 6.x.x`
 
-## Setup and Run
+## Setup and Run local project
+
+1. Download and install script
+
+```sh
+$ git clone https://github.com/mdsyahid/find-todo.git
+$ npm install
+```
+
+2. Run the script
+```sh
+$ npm run start
+```
+
+## Setup and Run as node module library
 
 1. Download and install script
 
@@ -27,18 +43,50 @@ $ git clone https://github.com/mdsyahid/find-todo.git
 $ npm install ../find-todo
 ```
 
+***Note***
+Ensure /path/to/your/node/project is same folder level as find-todo folder
 
 2. Add a new script inside your package.json
 
 ```
 "scripts": {
-  "todo": "find-todos --ext=.js --filter=node_modules",
+  "todo": "find-todo --ext=.js --filter=node_modules",
 }
 ```
 
 3. Run the script
 ```sh
 $ npm run todo
+```
+
+## Available Arguments 
+
+- `--filter` - To filter a filename or folder (Exact Match)
+```
+"scripts": {
+  "todo": "find-todo --filter=node_modules",
+}
+```
+
+- `--ext` - Which file extension to search. Accept only single word. Default: All files extension.
+```
+"scripts": {
+  "todo": "find-todo --ext=.js",
+}
+```
+
+- `--keyword` - Keyword to find. Default: TODO
+```
+"scripts": {
+  "todo": "find-todo --keyword=TODO",
+}
+```
+
+- `--customPath` - The path to search the keyword. Default: Root of the project
+```
+"scripts": {
+  "todo": "find-todo --customPath=./",
+}
 ```
 
 ## Test and Lint
